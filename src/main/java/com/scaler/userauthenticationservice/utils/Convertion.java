@@ -7,6 +7,8 @@ import com.scaler.userauthenticationservice.dtos.UserDto;
 import com.scaler.userauthenticationservice.models.Role;
 import com.scaler.userauthenticationservice.models.User;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,5 +47,12 @@ public class Convertion {
         user.setEmail( loginRequestDto.getEmail());
         user.setPassword(loginRequestDto.getPassword());
         return user;
+    }
+
+    public static Date calculateExpiryDate(final int expiryTimeInMinutes) {
+        final Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(new Date().getTime());
+        cal.add(Calendar.MINUTE, expiryTimeInMinutes);
+        return new Date(cal.getTime().getTime());
     }
 }

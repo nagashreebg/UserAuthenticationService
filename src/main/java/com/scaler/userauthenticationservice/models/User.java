@@ -1,18 +1,24 @@
 package com.scaler.userauthenticationservice.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.scaler.userauthenticationservice.utils.Convertion;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.Setter;
 import org.jboss.aerogear.security.otp.api.Base32;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@JsonDeserialize
+@JsonSerialize
 public class User extends BaseModel{
     private static final int EXPIRATION = 60 * 24;
 
@@ -25,17 +31,9 @@ public class User extends BaseModel{
     public User(){
         super();
         this.secret = Base32.random();
-        this.setExpiryDate(calculateExpiryDate(EXPIRATION));
+        this.setExpiryDate(Convertion.calculateExpiryDate(EXPIRATION));
     }
 
     @ManyToMany( fetch = FetchType.EAGER )
     private List<Role> role = new ArrayList<>();
-
-    private Date calculateExpiryDate(final int expiryTimeInMinutes) {
-        final Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(new Date().getTime());
-        cal.add(Calendar.MINUTE, expiryTimeInMinutes);
-        return new Date(cal.getTime().getTime());
-    }
-
 }
