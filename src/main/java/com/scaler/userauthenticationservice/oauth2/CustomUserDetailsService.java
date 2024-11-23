@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.security;
+package com.scaler.userauthenticationservice.oauth2;
 
 import com.scaler.userauthenticationservice.models.Role;
 import com.scaler.userauthenticationservice.models.User;

@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.security;
+package com.scaler.userauthenticationservice.config;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;

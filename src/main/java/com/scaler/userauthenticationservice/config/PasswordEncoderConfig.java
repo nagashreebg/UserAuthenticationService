@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.security;
+package com.scaler.userauthenticationservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

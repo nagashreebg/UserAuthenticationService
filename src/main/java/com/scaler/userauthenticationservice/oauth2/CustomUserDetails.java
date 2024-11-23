@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.security;
+package com.scaler.userauthenticationservice.oauth2;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
