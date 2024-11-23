@@ -1,10 +1,8 @@
 package com.scaler.userauthenticationservice.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.scaler.userauthenticationservice.models.Role;
-import com.scaler.userauthenticationservice.models.User;
+import com.scaler.userauthenticationservice.models.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,17 +19,19 @@ import java.util.List;
 @JsonDeserialize
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonSerialize
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.ANY,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        isGetterVisibility = JsonAutoDetect.Visibility.NONE
+)
 public class CustomUserDetails implements UserDetails {
-//    private static final long serialVersionUID = 1L;
-    private User user;
-    List<GrantedAuthority> authorities;
+    private UserDto user;
+    List<GrantedAuthority> authorities = new ArrayList<>();
 
-    public CustomUserDetails(User user) {
+    public CustomUserDetails(UserDto user) {
         this.user = user;
-        this.authorities = new ArrayList<>();
-        for(Role role : user.getRole() ) {
-            authorities.add(new CustomGrantedAuthority(role));
+        for(String role : this.user.getRoles() ) {
+            this.authorities.add(new CustomGrantedAuthority(role));
         }
     }
 

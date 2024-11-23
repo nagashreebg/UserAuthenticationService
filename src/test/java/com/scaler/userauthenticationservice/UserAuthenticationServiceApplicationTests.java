@@ -28,19 +28,19 @@ class UserAuthenticationServiceApplicationTests {
 	@Test
 	public void createClient()
 	{
-		RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("cred-client")
-                .clientSecret(bCryptPasswordEncoder.encode("secret"))
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("https://oauth.pstmn.io/v1/callback")
-                .postLogoutRedirectUri("http://127.0.0.1:9000/")
-                .scope(OidcScopes.OPENID)
-                .scope(OidcScopes.PROFILE)
-				.scope("USEREMAIL")
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-                .build();
-		registeredClientRepository.save( oidcClient );
+//		RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
+//                .clientId("cred-client")
+//                .clientSecret(bCryptPasswordEncoder.encode("secret"))
+//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+//                .redirectUri("http://oauth.pstmn.io/v1/callback")
+//                .postLogoutRedirectUri("http://127.0.0.1:9000/")
+//                .scope(OidcScopes.OPENID)
+//                .scope(OidcScopes.PROFILE)
+//				.scope("USEREMAIL")
+//                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+//                .build();
+//		registeredClientRepository.save( oidcClient );
 	}
 }

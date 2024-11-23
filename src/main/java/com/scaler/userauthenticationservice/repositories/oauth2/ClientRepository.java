@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.repositories.oauth;
+package com.scaler.userauthenticationservice.repositories.oauth2;
 
 import java.util.Optional;
 

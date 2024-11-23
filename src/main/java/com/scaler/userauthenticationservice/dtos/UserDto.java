@@ -1,14 +1,20 @@
-package com.scaler.userauthenticationservice.dtos;
+package com.scaler.userauthenticationservice.models;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 public class UserDto {
     private String email;
-    private Set<RoleDto> roles = new HashSet<>();
+    private List<String> roles;
+    private String password;
+    public UserDto(String email, String password, List<String> roles) {
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
 }
+

@@ -14,7 +14,6 @@ import com.nimbusds.jose.proc.SecurityContext;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,9 +30,7 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@Primary
 public class SecurityConfig {
-
     @Bean
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
             throws Exception {
@@ -52,13 +49,10 @@ public class SecurityConfig {
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                         )
                 )
-                // Accept access tokens for User Info and/or Client Registration
                 .oauth2ResourceServer((resourceServer) -> resourceServer
                         .jwt(Customizer.withDefaults()));
-        //http.authenticationProvider(customAuthenticationProvider)
         return http.build();
     }
-
 
     @Bean
     public HttpFirewall getHttpFirewall() {
@@ -71,44 +65,15 @@ public class SecurityConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             throws Exception {
         http
-                .authorizeHttpRequests((authorize) -> authorize
-                        .anyRequest().authenticated()
-                )
-                // Form login handles the redirect to the login page from the
-                // authorization server filter chain
-                .formLogin(Customizer.withDefaults());
-
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/", "/error", "/webjars/**").permitAll()
+                .anyRequest().authenticated()
+        )
+            // Form login handles the redirect to the login page from the
+            // authorization server filter chain
+            .formLogin(Customizer.withDefaults());
         return http.build();
     }
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails userDetails = User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(userDetails);
-//    }
-
-//    @Bean
-//    public RegisteredClientRepository registeredClientRepository() {
-//        RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
-//                .clientId("oidc-client")
-//                .clientSecret("{noop}secret")
-//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-//                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/oidc-client")
-//                .postLogoutRedirectUri("http://127.0.0.1:8080/")
-//                .scope(OidcScopes.OPENID)
-//                .scope(OidcScopes.PROFILE)
-//                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-//                .build();
-//
-//        return new InMemoryRegisteredClientRepository(oidcClient);
-//    }
 
     @Bean
     public JWKSource<SecurityContext> jwkSource() {
@@ -145,21 +110,4 @@ public class SecurityConfig {
     public AuthorizationServerSettings authorizationServerSettings() {
         return AuthorizationServerSettings.builder().build();
     }
-
-   // @Bean
-//    public ObjectMapper objectMapper() {
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.activateDefaultTyping(
-//                LaissezFaireSubTypeValidator.instance,
-//                ObjectMapper.DefaultTyping.OBJECT_AND_NON_CONCRETE
-//        );
-//        SimpleModule module = new SimpleModule();
-//        module.addSerializer(Timestamp.class, new TimestampSerializer());
-//        module.addDeserializer(Timestamp.class, new TimestampDeserializer());
-//        mapper.registerModule(module);
-//        mapper.addMixIn(Timestamp.class, TimestampMixin.class);
-//
-//        return mapper;
-//    }
-
 }

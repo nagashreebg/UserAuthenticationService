@@ -1,11 +1,9 @@
-package com.scaler.userauthenticationservice.services.oauth;
+package com.scaler.userauthenticationservice.services.oauth2;
 
 import java.util.HashSet;
 import java.util.Set;
-
-
 import com.scaler.userauthenticationservice.models.oauth.AuthorizationConsent;
-import com.scaler.userauthenticationservice.repositories.oauth.AuthorizationConsentRepository;
+import com.scaler.userauthenticationservice.repositories.oauth2.AuthorizationConsentRepository;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -65,7 +63,6 @@ public class JpaOAuth2AuthorizationConsentService implements OAuth2Authorization
                 builder.authority(new SimpleGrantedAuthority(authority));
             }
         }
-
         return builder.build();
     }
 
@@ -79,7 +76,6 @@ public class JpaOAuth2AuthorizationConsentService implements OAuth2Authorization
             authorities.add(authority.getAuthority());
         }
         entity.setAuthorities(StringUtils.collectionToCommaDelimitedString(authorities));
-
         return entity;
     }
 }

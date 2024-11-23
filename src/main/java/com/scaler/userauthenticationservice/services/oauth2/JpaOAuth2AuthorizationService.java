@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.services.oauth;
+package com.scaler.userauthenticationservice.services.oauth2;
 
 import java.time.Instant;
 import java.util.List;
@@ -10,8 +10,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.scaler.userauthenticationservice.models.UserDto;
 import com.scaler.userauthenticationservice.models.oauth.Authorization;
-import com.scaler.userauthenticationservice.repositories.oauth.AuthorizationRepository;
+import com.scaler.userauthenticationservice.repositories.oauth2.AuthorizationRepository;
+import org.hibernate.collection.spi.PersistentBag;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -23,17 +25,13 @@ import org.springframework.security.oauth2.core.OAuth2UserCode;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
-import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationCode;
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
+import org.springframework.security.oauth2.server.authorization.*;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-
 @Component
 public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService {
     private final AuthorizationRepository authorizationRepository;
@@ -45,11 +43,12 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
         Assert.notNull(registeredClientRepository, "registeredClientRepository cannot be null");
         this.authorizationRepository = authorizationRepository;
         this.registeredClientRepository = registeredClientRepository;
-
         ClassLoader classLoader = JpaOAuth2AuthorizationService.class.getClassLoader();
         List<Module> securityModules = SecurityJackson2Modules.getModules(classLoader);
         this.objectMapper.registerModules(securityModules);
         this.objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
+        this.objectMapper.addMixIn( PersistentBag.class, PersistentBagMixin.class);
+        this.objectMapper.addMixIn( UserDto.class, UserDTOMixin.class);
     }
 
     @Override
