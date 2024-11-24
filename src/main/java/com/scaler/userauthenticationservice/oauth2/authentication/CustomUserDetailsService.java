@@ -28,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<String> roleNames = user.getRoles().stream()
                 .map(Role::getRoleName)
                 .collect(Collectors.toList());
-        return new CustomUserDetails( new UserDto(user.getEmail(), user.getPassword(),
+        return new CustomUserDetails( null, new UserDto(user.getEmail(), user.getPassword(),
                                       roleNames) );
     }
 }

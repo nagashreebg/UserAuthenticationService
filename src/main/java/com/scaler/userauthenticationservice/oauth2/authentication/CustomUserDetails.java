@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
@@ -25,15 +24,22 @@ import java.util.List;
         getterVisibility = JsonAutoDetect.Visibility.NONE,
         isGetterVisibility = JsonAutoDetect.Visibility.NONE
 )
-public class CustomUserDetails implements UserDetails {
-    private UserDto user;
+public class CustomUserDetails implements OAuth2User, UserDetails {
+    private  OAuth2User oauth2User;
+    private  UserDto user;
     List<GrantedAuthority> authorities = new ArrayList<>();
 
-    public CustomUserDetails(UserDto user) {
+    public CustomUserDetails(OAuth2User oauth2User, UserDto user) {
+        this.oauth2User = oauth2User;
         this.user = user;
         for(String role : this.user.getRoles() ) {
             this.authorities.add(new CustomGrantedAuthority(role));
         }
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return oauth2User != null ? oauth2User.getAttributes() : new HashMap<>();
     }
 
     @Override
@@ -49,5 +55,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return user.getEmail();
+    }
+
+    @Override
+    public String getName() {
+        return this.getUsername();
     }
 }
