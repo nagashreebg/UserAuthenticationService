@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.oauth2;
+package com.scaler.userauthenticationservice.oauth2.authorization;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;

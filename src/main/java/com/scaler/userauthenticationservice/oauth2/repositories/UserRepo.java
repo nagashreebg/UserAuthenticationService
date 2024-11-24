@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.repositories;
+package com.scaler.userauthenticationservice.oauth2.repositories;
 
 import com.scaler.userauthenticationservice.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;

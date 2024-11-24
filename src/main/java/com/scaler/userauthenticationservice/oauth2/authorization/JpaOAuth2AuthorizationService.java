@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.services.oauth2;
+package com.scaler.userauthenticationservice.oauth2.authorization;
 
 import java.time.Instant;
 import java.util.List;
@@ -10,9 +10,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.scaler.userauthenticationservice.models.UserDto;
+import com.scaler.userauthenticationservice.oauth2.dto.UserDto;
 import com.scaler.userauthenticationservice.models.oauth.Authorization;
-import com.scaler.userauthenticationservice.repositories.oauth2.AuthorizationRepository;
+import com.scaler.userauthenticationservice.oauth2.repositories.AuthorizationRepository;
+import com.scaler.userauthenticationservice.oauth2.mixin.PersistentBagMixin;
+import com.scaler.userauthenticationservice.oauth2.mixin.UserDTOMixin;
 import org.hibernate.collection.spi.PersistentBag;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.jackson2.SecurityJackson2Modules;

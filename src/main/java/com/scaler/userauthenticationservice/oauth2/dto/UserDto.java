@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.models;
+package com.scaler.userauthenticationservice.oauth2.dto;
 
 import lombok.Getter;
 import lombok.Setter;

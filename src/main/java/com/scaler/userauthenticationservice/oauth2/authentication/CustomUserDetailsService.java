@@ -1,9 +1,9 @@
-package com.scaler.userauthenticationservice.oauth2;
+package com.scaler.userauthenticationservice.oauth2.authentication;
 
 import com.scaler.userauthenticationservice.models.Role;
 import com.scaler.userauthenticationservice.models.User;
-import com.scaler.userauthenticationservice.models.UserDto;
-import com.scaler.userauthenticationservice.repositories.UserRepo;
+import com.scaler.userauthenticationservice.oauth2.dto.UserDto;
+import com.scaler.userauthenticationservice.oauth2.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

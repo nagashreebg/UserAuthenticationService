@@ -1,9 +1,9 @@
-package com.scaler.userauthenticationservice.services.oauth2;
+package com.scaler.userauthenticationservice.oauth2.authorization;
 
 import java.util.HashSet;
 import java.util.Set;
 import com.scaler.userauthenticationservice.models.oauth.AuthorizationConsent;
-import com.scaler.userauthenticationservice.repositories.oauth2.AuthorizationConsentRepository;
+import com.scaler.userauthenticationservice.oauth2.repositories.AuthorizationConsentRepository;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

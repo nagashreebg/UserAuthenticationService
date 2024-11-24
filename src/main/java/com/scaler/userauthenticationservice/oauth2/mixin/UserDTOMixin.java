@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.services.oauth2;
+package com.scaler.userauthenticationservice.oauth2.mixin;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

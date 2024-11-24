@@ -1,4 +1,4 @@
-package com.scaler.userauthenticationservice.oauth2;
+package com.scaler.userauthenticationservice.oauth2.authentication;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AuthenticationDetailsSource;

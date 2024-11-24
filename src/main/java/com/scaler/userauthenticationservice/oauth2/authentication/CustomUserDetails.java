@@ -1,8 +1,9 @@
-package com.scaler.userauthenticationservice.oauth2;
+package com.scaler.userauthenticationservice.oauth2.authentication;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.scaler.userauthenticationservice.models.UserDto;
+import com.scaler.userauthenticationservice.oauth2.authorization.CustomGrantedAuthority;
+import com.scaler.userauthenticationservice.oauth2.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
